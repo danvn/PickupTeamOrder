@@ -11,28 +11,45 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Collections;
+import java.util.Map.Entry;
+import java.util.Map;
+import java.util.Set;
 
 public class CombineTeams {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         String file = "/Users/dannguyen/Dropbox/Code/src/testTeams.txt";
+
+        // Read in txt file. Add a new key for each new line.
+        // Each key's value is the new line's contents as a string
         HashMap<Integer, String> newTeams = new HashMap<Integer, String>();
+        HashMap<Integer,List<String>> teamsArrayList = new HashMap<Integer,List<String>>();
         String line;
-
         BufferedReader reader = new BufferedReader(new FileReader(file));
-
         int i = 1;
+        int x = 1;
         while ((line = reader.readLine()) != null)
         {
             newTeams.put(i, line);
             i++;
         }
 
+        List myList = new ArrayList();
+        for (Map.Entry<Integer, String> entry : newTeams.entrySet()) {
+            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+            myList = Arrays.asList(entry.getValue().split(", "));
+            teamsArrayList.put(x, myList);
+            x++;
+        }
 
-        System.out.println(newTeams.get(7));
-        System.out.println(Arrays.asList(newTeams)); // Print whole teams list
+
+        for (Map.Entry<Integer, List<String>> entry : teamsArrayList.entrySet()) {
+            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+        }
+
+        System.out.println(newTeams.get(1));
+        System.out.println(myList.get(1));
+
         reader.close();
-
-
 
     }
 
